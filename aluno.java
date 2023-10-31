@@ -1,46 +1,61 @@
-public class aluno{
-    String nomeCompleto;
-    int matricula;
-    String curso;
-    int cargaHorariaTotal;
-    int quantidadeAtividades;
+public class aluno {
+    private String nomeCompleto;
+    private int matricula;
+    private String curso;
+    private int cargaHorariaTotal;
 
-    public aluno(String nomeCompleto, int matricula, String curso, int cargaHorariaTotal, int quantidadeAtividades) {
+    public aluno(String nomeCompleto, int matricula, String curso) {
         this.nomeCompleto = nomeCompleto;
         this.matricula = matricula;
         this.curso = curso;
-        this.cargaHorariaTotal = cargaHorariaTotal;
-        this.quantidadeAtividades = quantidadeAtividades;
+        this.cargaHorariaTotal = 0;
     }
+
     public String getNomeCompleto() {
         return nomeCompleto;
     }
+
     public void setNomeCompleto(String nomeCompleto) {
         this.nomeCompleto = nomeCompleto;
     }
+
     public int getMatricula() {
         return matricula;
     }
+
     public void setMatricula(int matricula) {
         this.matricula = matricula;
     }
+
     public String getCurso() {
         return curso;
     }
+
     public void setCurso(String curso) {
         this.curso = curso;
     }
+
+    public void adicionarCargaHoraria(int cargaHoraria) {
+        this.cargaHorariaTotal += cargaHoraria;
+    }
+
     public int getCargaHorariaTotal() {
         return cargaHorariaTotal;
     }
-    public void setCargaHorariaTotal(int cargaHorariaTotal) {
-        this.cargaHorariaTotal = cargaHorariaTotal;
-    }
+
     public int getQuantidadeAtividades() {
-        return quantidadeAtividades;
+      
+        return 0;
     }
-    public void setQuantidadeAtividades(int quantidadeAtividades) {
-        this.quantidadeAtividades = quantidadeAtividades;
+    
+public void adicionarCargaHorariaAtividade(int cargaHoraria) {
+    this.cargaHorariaTotal += cargaHoraria;
+}
+
+public void atualizarStatusAtividade(boolean statusAproveitamento, int cargaHorariaConsiderada) {
+    if (statusAproveitamento) {
+        adicionarCargaHoraria(cargaHorariaConsiderada);
     }
-        
+}
+
 }

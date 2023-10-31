@@ -4,85 +4,171 @@ import java.util.Scanner;
 
 public class principal {
     public static void main(String[] args) {
-        List<aluno> listaAluno = new ArrayList<>();
-        List<atividadeComplementar> listaAtividadeComplementar = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
+        List<aluno> alunos = new ArrayList<>();
+        List<atividadeComplementar> atividades = new ArrayList<>();
+        aluno aluno = null;
 
-        while(true) {
-            System.out.println("Escolha uma operação");
-            System.out.println("1 - Cadastrar Aluno");
-            System.out.println("2 - Cadastrar Atividade Complementar");
-            System.out.println("3 - Pesquisar as Atividade Complementar");
-            System.out.println("4 - Alterar status da Atividade Complementar");
-            System.out.println("5 - Mostrar a carga horária das Atividades Complementares de todos os alunos cadastrados");
-            System.out.println("6 - Mostrar a carga horária das Atividades Complementares de um aluno cadastrado");
+        while (true) {
+            System.out.println("Olá, bem-vindo ao nosso sistema, o que você deseja fazer?");
+            System.out.println("1- Cadastrar aluno");
+            System.out.println("2- Cadastrar atividade complementar");
+            System.out.println("3- Pesquisar as atividades complementares de um aluno");
+            System.out.println("4- Alterar status da atividade complementar");
+            System.out.println("5- Mostrar a carga horária total das atividades complementares de todos os alunos cadastrados");
+            System.out.println("6- Mostrar a carga horária total das atividades complementares de um aluno cadastrado");
+            System.out.println("7- Sair do sistema");
 
             int escolha = scanner.nextInt();
             scanner.nextLine();
 
-            switch (escolha){
-                case 1: // Cadastrar Aluno
-                    System.out.println("Digite o nome completo do Aluno:");
-                    String nomeCompleto = scanner.nextLine();
-                    System.out.println("Digite seu curso:");
-                    String curso = scanner.nextLine();
-                    System.out.println("Digite uma matricula para Aluno:");
-                    int matricula = scanner.nextInt();
-                    System.out.println("Digite a carga horaria total do Aluno:");
-                    int cargaHorariaTotal = scanner.nextInt();
-                    System.out.println("Digite a quantidade de atividades do Aluno:");
-                    int quantidadeAtividades = scanner.nextInt();
-                    aluno novoAluno = new aluno(nomeCompleto,matricula,curso,cargaHorariaTotal,quantidadeAtividades);
-                    listaAluno.add(novoAluno);
-                    System.out.println("Aluno adicionado com sucesso!");
-                    break;
-                
-                case 2: // Cadastrar Atividade Complementar
-                    System.out.println("Digite o nome completo do Aluno:");
+            switch (escolha) {
+                case 1:
+                    System.out.println("Informe o nome do aluno:");
                     String nomeAluno = scanner.nextLine();
-                    System.out.println("Digite a descrição da atividade:");
-                    String descricaoAtividade = scanner.nextLine();
-                    System.out.println("Digite uma matricula para Aluno:");
-                    int matriculacom = scanner.nextInt();
-                    System.out.println("Digite seu número de Registro:");
-                    int numeroRegistro = scanner.nextInt();
-                    System.out.println("Digite o grupo de Atividade:");
-                    int grupoAtividade = scanner.nextInt();
-                    System.out.println("Digite o status de aproveitamento true ou false:");
-                    Boolean statusAproveitamento = scanner.nextBoolean();
-                    System.out.println("Digite a carga Horaria Considerada:");
-                    int cargaHorariaConsiderada = scanner.nextInt();
-                    atividadeComplementar novaAtividadeComplementar = new atividadeComplementar(nomeAluno,matriculacom,numeroRegistro,grupoAtividade,descricaoAtividade,statusAproveitamento, cargaHorariaConsiderada);
-                    listaAtividadeComplementar.add(novaAtividadeComplementar);
-                    System.out.println("Atividade adicionada com sucesso!");
+                    System.out.println("Informe a matrícula do aluno:");
+                    int matricula = scanner.nextInt();
+                    scanner.nextLine();
+                    System.out.println("Informe o curso do aluno:");
+                    String curso = scanner.nextLine();
+                    System.out.println("Tem certeza que deseja cadastrar um aluno? (s/n)");
+                    String confirmacaoAluno = scanner.nextLine().toLowerCase();
+                    if (confirmacaoAluno.equals("s")) {
+                        aluno = new aluno(nomeAluno, matricula, curso);
+                        alunos.add(aluno);
+                        System.out.println("Aluno cadastrado!");
+                    } else {
+                        System.out.println("Operação de cadastro de aluno cancelada.");
+                    }
                     break;
+
+                case 2:
+                    System.out.println("Informe a matrícula do aluno:");
+                    int matriculaAluno = scanner.nextInt();
+                    scanner.nextLine();
+
+                    aluno alunoEncontrado = null;
+                    for (aluno a : alunos) {
+                        if (a.getMatricula() == matriculaAluno) {
+                            alunoEncontrado = a;
+                            break;
+                        }
+                    }
+
+                    if (alunoEncontrado != null) {
+                        System.out.println("Informe o número do grupo da atividade:");
+                        int grupoAtividade = scanner.nextInt();
+                        scanner.nextLine();
+                        System.out.println("Informe a descrição da atividade:");
+                        String descricaoAtividade = scanner.nextLine();
+                        System.out.println("Qual a carga horária?");
+                        int cargaHoraria = scanner.nextInt();
+                        scanner.nextLine();
+
+                        System.out.println(
+                                "Tem certeza que deseja cadastrar a atividade complementar para o aluno? (s/n)");
+                        String confirmacaoAtividade = scanner.nextLine().toLowerCase();
+                        if (confirmacaoAtividade.equals("s")) {
+                            atividadeComplementar atividade = new atividadeComplementar(
+                                    alunoEncontrado.getNomeCompleto(), alunoEncontrado.getMatricula(), grupoAtividade,
+                                    descricaoAtividade, cargaHoraria);
+                                    atividades.add(atividade);
+                            alunoEncontrado.adicionarCargaHorariaAtividade(cargaHoraria);
+                            System.out.println("Atividade complementar cadastrada para o aluno com matrícula "
+                                    + matriculaAluno + "!");
+                        } else {
+                            System.out.println("Cadastro de atividade complementar cancelado.");
+                        }
+                    } else {
+                        System.out.println("Aluno com matrícula " + matriculaAluno
+                                + " não encontrado. Cadastre o aluno primeiro.");
+                    }
+                    System.out.println("-------------------------------------------------------------------");
+                    break;
+
                 case 3:
-                    System.out.println("Para pesquisar as atividades complementares de um aluno digite a matricula:");
+                    System.out.println("Informe a matrícula do aluno:");
                     int matriculaPesquisa = scanner.nextInt();
-                    pesquisarAlunoPorMatricula(listaAluno, listaAtividadeComplementar, matriculaPesquisa);
+                    scanner.nextLine();
+                    System.out.println("Atividades complementares do aluno:");
+                    for (atividadeComplementar a : atividades) {
+                        if (a.getMatricula() == matriculaPesquisa) {
+                            System.out.println("Número de Registro: " + a.getNumeroRegistro());
+                            System.out.println("Descrição: " + a.getDescricaoAtividade());
+                        }
+                    }
+                     System.out.println("-------------------------------------------------------------------");
+                    break;
+
+                case 4:
+                    System.out.println("Informe a matrícula do aluno:");
+                    int matriculaAlterar = scanner.nextInt();
+                    scanner.nextLine();
+                    System.out.println("Informe o número do registro da atividade:");
+                    int numeroRegistroAlterar = scanner.nextInt();
+                    scanner.nextLine();
+                    for (atividadeComplementar a : atividades) {
+                        if (a.getMatricula() == matriculaAlterar && a.getNumeroRegistro() == numeroRegistroAlterar) {
+                            System.out.println("Informe o novo status de aproveitamento (TRUE ou FALSE):");
+                            boolean novoStatus = Boolean.parseBoolean(scanner.nextLine());
+                            a.setStatusAproveitamento(novoStatus);
+                            System.out.println("Informe a carga horária considerada:");
+                            int cargaHorariaConsiderada = scanner.nextInt();
+                            scanner.nextLine();
+                            a.setCargaHorariaConsiderada(cargaHorariaConsiderada);
+
+                            if (novoStatus) {
+                                for (aluno alunoAtual : alunos) {
+                                    if (alunoAtual.getMatricula() == matriculaAlterar) {
+                                        alunoAtual.adicionarCargaHoraria(cargaHorariaConsiderada);
+                                    }
+                                }
+                            }
+                            System.out.println("Status da atividade alterado com sucesso!");
+                            System.out.println("-------------------------------------------------------------------");
+                            break;
+                        }
+                    }
+                    break;
+
+                case 5:
+                    System.out.println("Carga horária total das atividades complementares de todos os alunos:");
+                    for (aluno alunoAtual : alunos) {
+                        System.out.println("Nome: " + alunoAtual.getNomeCompleto());
+                        System.out.println("Matrícula: " + alunoAtual.getMatricula());
+                        System.out.println("Curso: " + alunoAtual.getCurso());
+                        System.out.println("Carga Horária Total: " + alunoAtual.getCargaHorariaTotal());
+                        System.out.println("Quantidade de Atividades: " + alunoAtual.getQuantidadeAtividades());
+                        System.out.println("-------------------------------------------------------------------");
+                    }
+                    break;
+
+                case 6:
+                    System.out.println("Informe a matrícula do aluno:");
+                    int matriculaPesquisaAluno = scanner.nextInt();
+                    scanner.nextLine();
+                    for (aluno alunoAtual : alunos) {
+                        if (alunoAtual.getMatricula() == matriculaPesquisaAluno) {
+                            System.out.println("Nome: " + alunoAtual.getNomeCompleto());
+                            System.out.println("Matrícula: " + alunoAtual.getMatricula());
+                            System.out.println("Curso: " + alunoAtual.getCurso());
+                            System.out.println("Carga Horária Total: " + alunoAtual.getCargaHorariaTotal());
+                            System.out.println("Quantidade de Atividades: " + alunoAtual.getQuantidadeAtividades());
+                            System.out.println("-------------------------------------------------------------------");
+                            break;
+                        }
+                    }
+                    break;
+
+                case 7:
+                    System.out.println("Sistema encerrado.");
+                    System.exit(0);
+                    break;
+
+                default:
+                    System.out.println("Opção inválida");
                     break;
             }
-            
         }
-
-    }
-    public static void pesquisarAlunoPorMatricula(List<aluno> alunos, List<atividadeComplementar> atividadesComplementares, int matriculaPesquisa){
-    for (aluno a : alunos){
-        if (a.getMatricula() == matriculaPesquisa){
-            System.out.println("Aluno encontrado");
-            System.out.println("Nome Completo: \n"+a.getNomeCompleto()+"\nMatricula: \n" +a.getMatricula()+ "\nCurso: \n"+ a.getCurso()+"\nCarga Horária Total: \n"+a.getCargaHorariaTotal()+"\nQuantidade de Atividades: \n"+a.getQuantidadeAtividades());
-
-            System.out.println("Atividades Complementares feitos por este aluno");
-            System.out.println("-----------------------------------------------------------");
-            for (atividadeComplementar ac : atividadesComplementares){
-                if (ac.getNomeAluno().equals(a.getNomeCompleto())){
-                    System.out.println("Nome Aluno: \n"+ ac.getNomeAluno() + "\nMatricula: \n" +ac.getmatriculacom()+ "\nNúmero Registro: \n" +ac.getNumeroRegistro()+ "\nGrupo da Atividade: \n"+ac.getGrupoAtividade()+"\nDescrição da Atividade: \n"+ac.getDescricaoAtividade()+"\nStatus de Aproveitamento: \n"+ ac.getStatusAproveitamento()+"\nCarga Horaria Considerada: "+ac.getCargaHorariaConsiderada());
-                }
-            }
-            return;
-        }
-    }
-    System.out.println("Pessoa não encontrada.");
-    
     }
 }

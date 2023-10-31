@@ -1,65 +1,64 @@
 public class atividadeComplementar {
-    String nomeAluno;
-    int matriculacom;
-    int numeroRegistro;
-    int grupoAtividade;
-    String descricaoAtividade;
-    Boolean statusAproveitamento;
-    int cargaHorariaConsiderada;
-    public atividadeComplementar(){};
-    public atividadeComplementar(String nomeAluno, int matriculacom, int numeroRegistro, int grupoAtividade,
-            String descricaoAtividade, Boolean statusAproveitamento, int cargaHorariaConsiderada) {
+    private static int proximoNumeroRegistro = 1;
+
+    private String nomeAluno;
+    private int matricula;
+    private int numeroRegistro;
+    private int grupoAtividade;
+    private String descricaoAtividade;
+    private boolean statusAproveitamento;
+    private int cargaHoraria;
+    private int cargaHorariaConsiderada;
+
+    public atividadeComplementar(String nomeAluno, int matricula, int grupoAtividade, String descricaoAtividade, int cargaHoraria) {
         this.nomeAluno = nomeAluno;
-        this.matriculacom = matriculacom;
-        this.numeroRegistro = numeroRegistro;
+        this.matricula = matricula;
         this.grupoAtividade = grupoAtividade;
         this.descricaoAtividade = descricaoAtividade;
-        this.statusAproveitamento = statusAproveitamento;
-        this.cargaHorariaConsiderada = cargaHorariaConsiderada;
+        this.statusAproveitamento = false;
+        this.cargaHoraria = cargaHoraria;
+        this.cargaHorariaConsiderada = 0;
+        this.numeroRegistro = proximoNumeroRegistro;
+        proximoNumeroRegistro++;
     }
+
     public String getNomeAluno() {
         return nomeAluno;
     }
-    public void setNomeAluno(String nomeAluno) {
-        this.nomeAluno = nomeAluno;
+
+    public int getMatricula() {
+        return matricula;
     }
-    public int getmatriculacom() {
-        return matriculacom;
-    }
-    public void setmatriculacom(int matriculacom) {
-        this.matriculacom = matriculacom;
-    }
+
     public int getNumeroRegistro() {
         return numeroRegistro;
     }
-    public void setNumeroRegistro(int numeroRegistro) {
-        this.numeroRegistro = numeroRegistro;
-    }
+
     public int getGrupoAtividade() {
         return grupoAtividade;
     }
-    public void setGrupoAtividade(int grupoAtividade) {
-        this.grupoAtividade = grupoAtividade;
-    }
+
     public String getDescricaoAtividade() {
         return descricaoAtividade;
     }
-    public void setDescricaoAtividade(String descricaoAtividade) {
-        this.descricaoAtividade = descricaoAtividade;
-    }
-    public Boolean getStatusAproveitamento() {
+
+    public boolean isStatusAproveitamento() {
         return statusAproveitamento;
     }
-    public void setStatusAproveitamento(Boolean statusAproveitamento) {
+
+    public void setStatusAproveitamento(boolean statusAproveitamento) {
         this.statusAproveitamento = statusAproveitamento;
     }
+
+    public int getCargaHoraria() {
+        return cargaHoraria;
+    }
+
     public int getCargaHorariaConsiderada() {
         return cargaHorariaConsiderada;
     }
+
     public void setCargaHorariaConsiderada(int cargaHorariaConsiderada) {
         this.cargaHorariaConsiderada = cargaHorariaConsiderada;
     }
-    
-
-    
 }
